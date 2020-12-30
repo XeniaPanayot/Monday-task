@@ -1,6 +1,7 @@
 import React from 'react';
 // import './Counter.css'
 import styles from './Counter.module.css'
+import Button from "./Button";
 
 type CounterPropsType = {
     number: number
@@ -17,13 +18,12 @@ function Counter(props: CounterPropsType) {
         return props.number === 0 ? true : false
     }
 
-    // const styleMaxNumber = {
-    //     fontSize: "30px",
-    //     color: props.number <= props.maxNumber ? "black" : "red",
-    // }
-    // const styleDisable = {
-    //     opacity: props.number > props.maxNumber ? "0.5" : "1"
-    // }
+    const onIncreaseHandler = props.increaseNumber;
+    const onResetHandler = props.resetNumber;
+
+    const incClass = props.number > props.maxNumber ? `${styles.btn} ${styles.btnInc} ${styles.disabledBtn}` : `${styles.btn} ${styles.btnInc}`;
+    const resetClass = props.number === 0 ? `${styles.btn} ${styles.btnReset} ${styles.disabledBtn}` : `${styles.btn} ${styles.btnReset}`;
+
 
     return <div className={styles.container}>
         <div className={styles.display}>
@@ -33,16 +33,18 @@ function Counter(props: CounterPropsType) {
             </span>
         </div>
         <div className={styles.buttons}>
-            <button
-                className={ props.number > props.maxNumber ? `${styles.btn} ${styles.btnInc} ${styles.disabledBtn}` : `${styles.btn} ${styles.btnInc}`}
+            <Button
+                name={'add one'}
                 onClick={props.increaseNumber}
-                disabled={incIsDisabled()}>inc
-            </button>
-            <button
-                className={ props.number === 0 ? `${styles.btn} ${styles.btnReset} ${styles.disabledBtn}` : `${styles.btn} ${styles.btnReset}`}
+                className={incClass}
+                disabled={incIsDisabled()}
+            />
+            <Button
+                name={'reset'}
                 onClick={props.resetNumber}
-                disabled={resetIsDisabled()}>reset
-            </button>
+                className={resetClass}
+                disabled={resetIsDisabled()}
+            />
         </div>
     </div>
 }
